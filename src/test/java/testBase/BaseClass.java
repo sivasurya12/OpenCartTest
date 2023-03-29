@@ -19,6 +19,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;  // logging
 
@@ -34,14 +36,14 @@ public class BaseClass {
 	@Parameters("browser")   // getting browser 
 	public void setup(String br)
 	{
-		//rb = ResourceBundle.getBundle("config");// Load config.properties
+		rb = ResourceBundle.getBundle("config");// Load config.properties
 		logger=LogManager.getLogger(this.getClass());  //logging
 		
 		 
 		ChromeOptions options=new ChromeOptions();
 		options.setExperimentalOption("excludeSwitches",new String[] {"enable-automation"});
 		options.addArguments("--remote-allow-origins=*");
-	//WebDriverManager.chromedriver().setup();
+	WebDriverManager.chromedriver().setup();
 		//driver=new ChromeDriver(options);
 		
 		//launch right browser based on parameter
@@ -57,10 +59,10 @@ public class BaseClass {
 		driver.manage().deleteAllCookies();
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		
-		driver.get("http://localhost/opencart/upload/index.php");
+	//	driver.get("http://localhost/opencart/upload/index.php");
 		//driver.get("https://demo.opencart.com/index.php");
-		//driver.get(rb.getString("appURL")); // get url from config.properties file
-		driver.manage().window().maximize();
+		driver.get(rb.getString("appURL")); // get url from config.properties file
+		//driver.manage().window().maximize();
 	}
 	
 	@AfterClass(groups= {"sanity"})
