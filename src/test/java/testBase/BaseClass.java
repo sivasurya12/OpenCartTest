@@ -32,7 +32,8 @@ public class BaseClass {
 	public Logger logger; // for logging
 	
 	public ResourceBundle rb;// to read config.properties
-	@BeforeClass(groups= {"sanity"})
+	@BeforeClass
+	//(groups= {"sanity"})
 	@Parameters("browser")   // getting browser 
 	public void setup(String br)
 	{
@@ -62,10 +63,11 @@ public class BaseClass {
 	//	driver.get("http://localhost/opencart/upload/index.php");
 		//driver.get("https://demo.opencart.com/index.php");
 		driver.get(rb.getString("appURL")); // get url from config.properties file
-		//driver.manage().window().maximize();
+		driver.manage().window().maximize();
 	}
 	
-	@AfterClass(groups= {"sanity"})
+	@AfterClass
+	//(groups= {"sanity"})
 	public void tearDown()
 	{
 		driver.quit();
